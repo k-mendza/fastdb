@@ -9,13 +9,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseService {
-    private Logger logger = LoggerFactory.getLogger(DatabaseService.class);
+    private static Logger logger = LoggerFactory.getLogger(DatabaseService.class);
 
-    public Connection openConnection() throws SQLException {
+    public static Connection openConnection() throws SQLException {
         return DriverManager.getConnection(DatabaseConfig.getConnectionURL(), DatabaseConfig.DATABASE_USER, DatabaseConfig.DATABASE_PASSWORD);
     }
 
-    public void closeConnection(Connection connection) {
+    public static void closeConnection(Connection connection) {
         try {
             connection.close();
         } catch (Exception e) {
