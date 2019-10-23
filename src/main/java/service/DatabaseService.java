@@ -1,9 +1,18 @@
 package service;
 
+import config.DatabaseConfig;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class DatabaseService {
-    public static final String DATABASE_HOST = "localhost";
-    public static final int DATABASE_PORT = 5432;
-    public static final String DATABASE_NAME = "postgres";
-    public static final String DATABASE_USER = "user";
-    public static final String DATABASE_PASSWORD = "password";
+
+    public Connection openConnection() throws SQLException {
+        return DriverManager.getConnection(DatabaseConfig.getConnectionURL(), DatabaseConfig.DATABASE_USER, DatabaseConfig.DATABASE_PASSWORD);
+    }
+
+    public void closeConnection(Connection connection) throws SQLException {
+        connection.close();
+    }
 }
