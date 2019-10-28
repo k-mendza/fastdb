@@ -24,6 +24,5 @@ public class DatabaseService {
             logger.error("Error while closing connection to database");
             logger.error(e.getMessage());
         }
-
     }
 }

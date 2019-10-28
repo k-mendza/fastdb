@@ -10,9 +10,3 @@ services:
       POSTGRES_USER: user
       POSTGRES_DB: postgres
       POSTGRES_PASSWORD: password
-
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
