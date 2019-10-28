@@ -1,9 +1,7 @@
 package domain;
 
-import java.math.BigInteger;
-
 public class Client {
-    private BigInteger id;
+    private Long id;
     private String firstName;
     private String lastName;
     private String email;
@@ -12,7 +10,7 @@ public class Client {
     public Client() {
     }
 
-    public Client(BigInteger id, String firstName, String lastName, String email, String phone) {
+    public Client(Long id, String firstName, String lastName, String email, String phone) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -20,11 +18,11 @@ public class Client {
         this.phone = phone;
     }
 
-    public BigInteger getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
