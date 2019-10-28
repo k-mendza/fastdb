@@ -11,7 +11,7 @@ public class ClientService {
 
     private static Logger logger = LoggerFactory.getLogger(ClientService.class);
 
-    public void saveClient(Client client) {
+    public static void saveClient(Client client) {
         try (Connection connection = DatabaseService.openConnection()) {
             StringBuilder query = new StringBuilder();
             query.append("INSERT INTO client ");
@@ -25,6 +25,7 @@ public class ClientService {
             preparedStatement.setString(4, client.getEmail());
             preparedStatement.setString(5, client.getPhone());
             preparedStatement.executeUpdate();
+            logger.info("Executed method saveClient successfully");
         } catch (Exception e) {
             logger.error("Error while saving client");
             logger.error(e.getMessage());

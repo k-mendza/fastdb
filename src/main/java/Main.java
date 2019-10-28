@@ -1,8 +1,7 @@
+import domain.Client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import service.DatabaseService;
-
-import java.sql.Connection;
+import service.ClientService;
 
 public class Main {
 
@@ -10,8 +9,14 @@ public class Main {
 
     public static void main(String[] args) {
         logger.info("Program start");
-        try (Connection connection = DatabaseService.openConnection()) {
-            DatabaseService.closeConnection(connection);
+        try {
+            Client client = new Client();
+            client.setId(1L);
+            client.setFirstName("Bob");
+            client.setLastName("Kowalsky");
+            client.setEmail("mail@mail.com");
+            client.setPhone("111222333");
+            ClientService.saveClient(client);
         } catch (Exception e) {
             logger.error("Error: ");
             logger.error(e.getMessage());
