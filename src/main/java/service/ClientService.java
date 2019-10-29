@@ -1,11 +1,19 @@
 package service;
 
+import com.opencsv.bean.ColumnPositionMappingStrategy;
+import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
 import domain.Client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClientService {
@@ -54,5 +62,30 @@ public class ClientService {
             logger.error("Error while saving client list");
             logger.error(e.getMessage());
         }
+    }
+
+    public static List<Client> getClientListFromCSVFile() {
+        Reader reader = null;
+        List<Client> clientList = new ArrayList<>();
+        try {
+            reader = Files.newBufferedReader(Paths.get(".\\src\\main\\resources\\MOCK_DATA_50k.csv"));
+            ColumnPositionMappingStrategy strategy = new ColumnPositionMappingStrategy();
+            strategy.setType(Client.class);
+            String[] memberFieldsToBindTo = {"id", "firstName", "lastName", "email", "phone"};
+            strategy.setColumnMapping(memberFieldsToBindTo);
+
+            CsvToBean<Client> csvToBean = new CsvToBeanBuilder(reader)
+                    .withMappingStrategy(strategy)
+                    .withSkipLines(1)
+                    .withIgnoreLeadingWhiteSpace(true)
+                    .build();
+
+            for (Client client : csvToBean) {
+                clientList.add(client);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return clientList;
     }
 }
